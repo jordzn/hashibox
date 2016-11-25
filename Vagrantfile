@@ -47,6 +47,7 @@ Vagrant.configure("2") do |config|
       end
 
       config.vm.synced_folder "./synced_folder", "/tmp/synced_folder"
+      config.vm.synced_folder "./shell", "/usr/local/bin"
 
       # Run scripts from node configuration
       if node_values['scripts']
