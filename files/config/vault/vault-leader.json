@@ -1,0 +1,7 @@
+{
+  "check": {
+    "name": "vault-leader",
+    "script": "export VAULT_ADDR=http://127.0.0.1:8200 && vault status | grep 'Mode: active' > /dev/null",
+    "interval": "30s"
+  }
+}

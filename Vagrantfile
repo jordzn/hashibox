@@ -2,8 +2,7 @@
 # vi: set ft=ruby :
 
 ### Configuration
-node_groups = (JSON.parse(File.read("config/nodes.json")))['node_groups']
-node_config = node_groups['consul_cluster']
+node_config = (JSON.parse(File.read("config/nodes.json")))['nodes']
 
 ### Vagrant
 
@@ -39,16 +38,6 @@ Vagrant.configure("2") do |config|
           id:    port[':id']
       end
 
-    #   config.trigger.after [:provision, :up, :reload] do
-    #     system('echo "
-    #       rdr pass on lo0 inet proto tcp from any to 127.0.0.1 port 8500 -> 127.0.0.1 port 8500
-    # " | sudo pfctl -ef - > /dev/null 2>&1; echo "==> Fowarding Ports: 8500 -> 8500 & Enabling pf"')
-    #   end
-    #
-    #   config.trigger.after [:halt, :destroy] do
-    #     system("sudo pfctl -df /etc/pf.conf > /dev/null 2>&1; echo '==> Removing Port Forwarding & Disabling pf'")
-    #   end
-
       # Configure ip address
       if node_values[':ip'] == 'dhcp'
         config.vm.network "private_network", type: "dhcp", auto_config: true
@@ -59,6 +48,7 @@ Vagrant.configure("2") do |config|
       config.vm.synced_folder "./synced_folder", "/tmp/synced_folder"
       config.vm.synced_folder "./files/scripts", "/usr/local/bin"
       config.vm.synced_folder "./files/config", "/tmp/config"
+      config.vm.synced_folder "./files/logs", "/tmp/logs"
 
       # Run scripts from node configuration
       if node_values['scripts']

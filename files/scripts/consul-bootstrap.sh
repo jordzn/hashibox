@@ -13,11 +13,11 @@ sudo mv /tmp/consul /usr/bin
 sudo mkdir -p /etc/consul.d
 
 if $1; then
-  consul agent -server -data-dir=/tmp/consul -node=${2} -bind=${3} -bootstrap-expect=${4} -config-dir=/etc/consul.d -ui -client 0.0.0.0 >>/var/log/consul.log 2>&1 < /dev/null &
+  consul agent -server -data-dir=/tmp/consul -node=$2 -bind=$3 -bootstrap-expect=$4 -config-dir=/etc/consul.d -ui -client 0.0.0.0 &>/tmp/logs/$2.log &
   sleep 5
-  consul join ${5} ${6} ${7}
+  consul join $5 $6 $7
 else
-  consul agent -data-dir=/tmp/consul -node=${2} -bind=${3} -config-dir=/etc/consul.d >/dev/null 2>&1 < /dev/null &
+  consul agent -data-dir=/tmp/consul -node=$2 -bind=$3 -config-dir=/etc/consul.d &>/dev/null &
   sleep 5
-  consul join ${4}
+  consul join $4
 fi

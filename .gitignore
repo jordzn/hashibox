@@ -1,3 +1,5 @@
 synced_folder/*
+files/logs
 .DS_Store
 .vagrant
+files/config/vault/keys

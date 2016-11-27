@@ -1,102 +1,118 @@
 {
-  "node_groups": {
-    "consul_cluster": {
-      "consul-0": {
-        ":base": "puppetlabs/centos-6.6-64-nocm",
-        ":ip": "172.20.20.10",
-        ":role": "consul_server",
-        ":memory": 1024,
-        ":cpus": 1,
-        "ports": [
-          {
-            ":host": 8500,
-            ":guest": 8500,
-            ":id": "consul"
-          }
-        ],
-        "scripts": [
-          "sudo iptables -I INPUT 1 -p tcp --dport 8300 -j ACCEPT",
-          "sudo iptables -I INPUT 1 -p tcp --dport 8301 -j ACCEPT",
-          "sudo iptables -I INPUT 1 -p tcp --dport 8400 -j ACCEPT",
-          "sudo iptables -I INPUT 1 -p tcp --dport 8500 -j ACCEPT",
-          "/usr/local/bin/consul-bootstrap.sh true server-0 172.20.20.10 3 172.20.20.10 172.20.20.11 172.20.20.12"
-        ]
-      },
-      "consul-1": {
-        ":base": "puppetlabs/centos-6.6-64-nocm",
-        ":ip": "172.20.20.11",
-        ":role": "consul_server",
-        ":memory": 1024,
-        ":cpus": 1,
-        "ports": [
-          {
-            ":host": 8501,
-            ":guest": 8500,
-            ":id": "consul"
-          }
-        ],
-        "scripts": [
-          "sudo iptables -I INPUT 1 -p tcp --dport 8300 -j ACCEPT",
-          "sudo iptables -I INPUT 1 -p tcp --dport 8301 -j ACCEPT",
-          "sudo iptables -I INPUT 1 -p tcp --dport 8400 -j ACCEPT",
-          "sudo iptables -I INPUT 1 -p tcp --dport 8500 -j ACCEPT",
-          "/usr/local/bin/consul-bootstrap.sh true server-1 172.20.20.11 3 172.20.20.10 172.20.20.11 172.20.20.12"
-        ]
-      },
-      "consul-2": {
-        ":base": "puppetlabs/centos-6.6-64-nocm",
-        ":ip": "172.20.20.12",
-        ":role": "consul_server",
-        ":memory": 1024,
-        ":cpus": 1,
-        "ports": [
-          {
-            ":host": 8502,
-            ":guest": 8500,
-            ":id": "consul"
-          }
-        ],
-        "scripts": [
-          "sudo iptables -I INPUT 1 -p tcp --dport 8300 -j ACCEPT",
-          "sudo iptables -I INPUT 1 -p tcp --dport 8301 -j ACCEPT",
-          "sudo iptables -I INPUT 1 -p tcp --dport 8400 -j ACCEPT",
-          "sudo iptables -I INPUT 1 -p tcp --dport 8500 -j ACCEPT",
-          "/usr/local/bin/consul-bootstrap.sh true server-2 172.20.20.12 3 172.20.20.10 172.20.20.11 172.20.20.12"
-        ]
-      },
-      "vault-0": {
-        ":base": "puppetlabs/centos-6.6-64-nocm",
-        ":ip": "172.20.20.13",
-        ":role": "vault_server",
-        ":memory": 1024,
-        ":cpus": 1,
-        "ports": [
-        ],
-        "scripts": [
-        ]
-      },
-      "vault-1": {
-        ":base": "puppetlabs/centos-6.6-64-nocm",
-        ":ip": "172.20.20.14",
-        ":role": "vault_server",
-        ":memory": 1024,
-        ":cpus": 1,
-        "ports": [
-        ],
-        "scripts": [
-        ]
-      },
-      "vault-3": {
-        ":base": "puppetlabs/centos-6.6-64-nocm",
-        ":ip": "172.20.20.15",
-        ":role": "consul_server",
-        ":memory": 1024,
-        ":cpus": 1,
-        "ports": [
-        ],
-        "scripts": [
-        ]
-      }
+  "nodes": {
+    "consul-0": {
+      ":base": "puppetlabs/centos-6.6-64-nocm",
+      ":ip": "172.20.20.10",
+      ":role": "consul_server",
+      ":memory": 1024,
+      ":cpus": 1,
+      "ports": [
+        {
+          ":host": 8500,
+          ":guest": 8500,
+          ":id": "consul"
+        }
+      ],
+      "scripts": [
+        "sudo iptables -I INPUT 1 -p tcp --dport 8300 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8301 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8400 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8500 -j ACCEPT",
+        "/usr/local/bin/consul-bootstrap.sh true consul-0 172.20.20.10 3 172.20.20.10 172.20.20.11 172.20.20.12"
+      ]
+    },
+    "consul-1": {
+      ":base": "puppetlabs/centos-6.6-64-nocm",
+      ":ip": "172.20.20.11",
+      ":role": "consul_server",
+      ":memory": 1024,
+      ":cpus": 1,
+      "ports": [
+        {
+          ":host": 8501,
+          ":guest": 8500,
+          ":id": "consul"
+        }
+      ],
+      "scripts": [
+        "sudo iptables -I INPUT 1 -p tcp --dport 8300 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8301 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8400 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8500 -j ACCEPT",
+        "/usr/local/bin/consul-bootstrap.sh true consul-1 172.20.20.11 3 172.20.20.10 172.20.20.11 172.20.20.12"
+      ]
+    },
+    "consul-2": {
+      ":base": "puppetlabs/centos-6.6-64-nocm",
+      ":ip": "172.20.20.12",
+      ":role": "consul_server",
+      ":memory": 1024,
+      ":cpus": 1,
+      "ports": [
+        {
+          ":host": 8502,
+          ":guest": 8500,
+          ":id": "consul"
+        }
+      ],
+      "scripts": [
+        "sudo iptables -I INPUT 1 -p tcp --dport 8300 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8301 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8400 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8500 -j ACCEPT",
+        "/usr/local/bin/consul-bootstrap.sh true consul-2 172.20.20.12 3 172.20.20.10 172.20.20.11 172.20.20.12"
+      ]
+    },
+    "vault-0": {
+      ":base": "puppetlabs/centos-6.6-64-nocm",
+      ":ip": "172.20.20.13",
+      ":role": "vault_server",
+      ":memory": 1024,
+      ":cpus": 1,
+      "ports": [],
+      "scripts": [
+        "sudo iptables -I INPUT 1 -p tcp --dport 8201 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8300 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8301 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8400 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8500 -j ACCEPT",
+        "/usr/local/bin/vault-bootstrap.sh 0",
+        "/usr/local/bin/consul-bootstrap.sh false vault-0 172.20.20.13 172.20.20.10"
+      ]
+    },
+    "vault-1": {
+      ":base": "puppetlabs/centos-6.6-64-nocm",
+      ":ip": "172.20.20.14",
+      ":role": "vault_server",
+      ":memory": 1024,
+      ":cpus": 1,
+      "ports": [],
+      "scripts": [
+        "sudo iptables -I INPUT 1 -p tcp --dport 8201 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8300 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8301 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8400 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8500 -j ACCEPT",
+        "/usr/local/bin/vault-bootstrap.sh 1",
+        "/usr/local/bin/consul-bootstrap.sh false vault-1 172.20.20.14 172.20.20.10"
+      ]
+    },
+    "vault-2": {
+      ":base": "puppetlabs/centos-6.6-64-nocm",
+      ":ip": "172.20.20.15",
+      ":role": "vault_server",
+      ":memory": 1024,
+      ":cpus": 1,
+      "ports": [],
+      "scripts": [
+        "sudo iptables -I INPUT 1 -p tcp --dport 8201 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8300 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8301 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8400 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8500 -j ACCEPT",
+        "/usr/local/bin/vault-bootstrap.sh 2",
+        "/usr/local/bin/consul-bootstrap.sh false vault-2 172.20.20.15 172.20.20.10"
+      ]
     }
   }
 }
