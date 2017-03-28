@@ -1,14 +1,14 @@
 {
   "nodes": {
     "consul-0": {
-      ":base": "puppetlabs/centos-6.6-64-nocm",
+      ":base": "jordzn/centos-7-3-puppet",
       ":ip": "172.20.20.10",
       ":role": "consul_server",
       ":memory": 1024,
       ":cpus": 1,
       "ports": [
         {
-          ":host": 8500,
+          ":host": 8585,
           ":guest": 8500,
           ":id": "consul"
         }
@@ -22,7 +22,7 @@
       ]
     },
     "consul-1": {
-      ":base": "puppetlabs/centos-6.6-64-nocm",
+      ":base": "jordzn/centos-7-3-puppet",
       ":ip": "172.20.20.11",
       ":role": "consul_server",
       ":memory": 1024,
@@ -43,7 +43,7 @@
       ]
     },
     "consul-2": {
-      ":base": "puppetlabs/centos-6.6-64-nocm",
+      ":base": "jordzn/centos-7-3-puppet",
       ":ip": "172.20.20.12",
       ":role": "consul_server",
       ":memory": 1024,
@@ -64,7 +64,7 @@
       ]
     },
     "vault-0": {
-      ":base": "puppetlabs/centos-6.6-64-nocm",
+      ":base": "jordzn/centos-7-3-puppet",
       ":ip": "172.20.20.13",
       ":role": "vault_server",
       ":memory": 1024,
@@ -81,7 +81,7 @@
       ]
     },
     "vault-1": {
-      ":base": "puppetlabs/centos-6.6-64-nocm",
+      ":base": "jordzn/centos-7-3-puppet",
       ":ip": "172.20.20.14",
       ":role": "vault_server",
       ":memory": 1024,
@@ -98,7 +98,7 @@
       ]
     },
     "vault-2": {
-      ":base": "puppetlabs/centos-6.6-64-nocm",
+      ":base": "jordzn/centos-7-3-puppet",
       ":ip": "172.20.20.15",
       ":role": "vault_server",
       ":memory": 1024,
@@ -112,6 +112,22 @@
         "sudo iptables -I INPUT 1 -p tcp --dport 8500 -j ACCEPT",
         "/usr/local/bin/vault-bootstrap.sh 2",
         "/usr/local/bin/consul-bootstrap.sh false vault-2 172.20.20.15 172.20.20.10"
+      ]
+    },
+    "nomad-0": {
+      ":base": "bento/centos-7.2",
+      ":ip": "172.20.20.16",
+      ":role": "nomad_server",
+      ":memory": 1024,
+      ":cpus": 1,
+      "ports": [],
+      "scripts": [
+        "sudo iptables -I INPUT 1 -p tcp --dport 8201 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8300 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8301 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8400 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8500 -j ACCEPT",
+        "/usr/local/bin/consul-bootstrap.sh false nomad-0 172.20.20.16 172.20.20.10"
       ]
     }
   }

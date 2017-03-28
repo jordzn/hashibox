@@ -27,6 +27,8 @@ Vagrant.configure("2") do |config|
         vb.customize ['modifyvm', :id, '--cpus', node_values[':cpus']] if node_values[':cpus']
         vb.customize ['modifyvm', :id, '--cpuexecutioncap', node_values[':cpuexecutioncap']] if node_values[':cpuexecutioncap']
         vb.customize ['modifyvm', :id, "--hostonlyadapter2", "vboxnet0"]
+        vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
       end
 
       # Configure forwarding ports

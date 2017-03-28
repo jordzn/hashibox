@@ -4,6 +4,7 @@ set -euo pipefail
 # ARGS
 # 1 = node count
 
+yum install unzip -y
 unzip /tmp/synced_folder/vault_0.6.2_linux_amd64.zip -d /tmp
 sudo mkdir /etc/vault
 sudo mv /tmp/vault /usr/bin
