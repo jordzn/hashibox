@@ -8,7 +8,7 @@ set -euo pipefail
 # 4 = cluster size // agent target server
 # 5 - n = consul server members
 
-yum install unzip -y
+yum install unzip bind-utils -y
 unzip /tmp/synced_folder/consul_0.7.1_linux_amd64.zip -d /tmp
 sudo mv /tmp/consul /usr/bin
 sudo mkdir -p /etc/consul.d
