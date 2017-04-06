@@ -67,8 +67,8 @@
       ":base": "jordzn/centos-7-3-puppet",
       ":ip": "172.20.20.13",
       ":role": "vault_server",
-      ":memory": 1024,
-      ":cpus": 1,
+      ":memory": 4096,
+      ":cpus": 4,
       "ports": [],
       "scripts": [
         "sudo iptables -I INPUT 1 -p tcp --dport 8201 -j ACCEPT",
@@ -114,9 +114,26 @@
         "/usr/local/bin/consul-bootstrap.sh false vault-2 172.20.20.15 172.20.20.10"
       ]
     },
+    "postgres-0": {
+      ":base": "jordzn/centos-7-3-puppet",
+      ":ip": "172.20.20.16",
+      ":role": "postgresql_server",
+      ":memory": 1024,
+      ":cpus": 1,
+      "ports": [],
+      "scripts": [
+        "sudo iptables -I INPUT 1 -p tcp --dport 8201 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8300 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8301 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 5432 -j ACCEPT",
+        "sudo iptables -I INPUT 1 -p tcp --dport 8500 -j ACCEPT",
+        "/usr/local/bin/consul-bootstrap.sh false postgresql-0 172.20.20.16 172.20.20.10",
+        "/usr/local/bin/postgresql-bootstrap.sh"
+      ]
+    },
     "nomad-0": {
       ":base": "bento/centos-7.2",
-      ":ip": "172.20.20.16",
+      ":ip": "172.20.20.17",
       ":role": "nomad_server",
       ":memory": 1024,
       ":cpus": 1,
