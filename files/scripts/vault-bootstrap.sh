@@ -4,7 +4,10 @@ set -euo pipefail
 # ARGS
 # 1 = node count
 
-yum install unzip bind-utils -y
+sudo yum install unzip bind-utils wget -y
+wget -O jq https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64
+sudo chmod +x ./jq
+sudo cp jq /usr/bin
 unzip /tmp/synced_folder/vault_0.6.2_linux_amd64.zip -d /tmp
 sudo mkdir /etc/vault
 sudo mv /tmp/vault /usr/bin
