@@ -1,6 +1,17 @@
 # Vagrant Datacenter
 
-A repository used for offline local testing and development.
+A repository used for offline local experimentation, testing and development with Vault and Consul.
+
+A full build will provide a pre-clustered, HA implementation of Vault and Consul spread across 6 nodes. Just unseal your Vault and you're good to go!
+
+*Access the Consul UI at localhost:8585/ui*
+
+If the following error is hit:
+```
+[vagrant@vault-0 ~]$ vault status
+Error checking seal status: Get http://127.0.0.1/v1/sys/seal-status: dial tcp 127.0.0.1:80: getsockopt: connection refused
+```
+Run: export VAULT_ADDR=http://127.0.0.1:8200 -- This is hit because Vault defaults to look for the https address for the Vault API.
 
 ## Commands
 
@@ -21,12 +32,12 @@ Destroy an individual node
 Destroy all nodes
 `vagrant destroy -f`
 
+## Experimentation
 
-## Tests
+### Does Vault HA result in backed up secrets?
+Yes, at least a single member of the HA backend cluster stays alive. If a snapshot process is also applied to the HA backend, it is possible to lose all Vault and HA backend nodes and still re-initialize Vault and access the snapshotted secrets. The original unseal keys must be maintained however.
 
-###Does Vault HA result in backed up secrets?
-
-###Can all Vault nodes be destroyed and come back into the same cluster?
+### Can all Vault nodes be destroyed and come back into the same cluster?
 From Host command line:
 - vagrant destroy vault-0 vault-1 vault-2 -f
 //destroy all Vault servers
@@ -37,7 +48,7 @@ From Host command line:
 //all 3 nodes re-joined the cluster. Consul considered the Vault cluster as healthy
 //vault-0 elected as leader, vault-1 and vault-2 remain passive
 
-###Can the active master Consul server be destroyed and not affect Vault?
+### Can the active master Consul server be destroyed and not affect Vault?
 From Host command line:
 - vagrant destroy consul-0
 //destroy the current Consul master node
@@ -45,7 +56,7 @@ From Host command line:
 //Clearly registered to the quorum and not just a single node
 //However, when checking leader status it is hitting Consul-0 that was originally registered with
 
-###What happens when all Vault servers are killed?
+### What happens when all Vault servers are killed?
 From Host command line:
 - vagrant destroy vault-0 vault-1 vault-2
 //destroy all Vault servers
@@ -56,7 +67,7 @@ From Host command line:
 //all 3 nodes re-joined the cluster. Consul considered the Vault cluster as healthy
 //vault-0 elected as leader, vault-1 and vault-2 remain passive
 
-###What happens when the active Vault server is killed?
+### What happens when the active Vault server is killed?
 From Host command line:
 - vagrant destroy vault-0
 //destroy active master Vault server
@@ -64,7 +75,7 @@ From Host command line:
 //vault-1 has become master after 15 seconds
 //Consul remained satisfied that Vault cluster was still active
 
-###What happens when 2/3 Vault servers are killed (including 1 active 1 standby)?
+### What happens when 2/3 Vault servers are killed (including 1 active 1 standby)?
 From Host command line:
 - vagrant destroy vault-0 vault-1
 //destroy active master Vault server and standby
