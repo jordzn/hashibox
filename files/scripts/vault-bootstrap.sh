@@ -21,10 +21,10 @@ sudo vault server -config=/etc/vault/vault.hcl &>/tmp/logs/vault-$1.log &
 sudo mkdir -p /etc/consul.d
 sudo cp /tmp/config/vault/vault-leader.json /etc/consul.d/vault-leader.json
 
-# if [[ $1 == 0 && ! -f /tmp/config/vault/keys ]]; then
-#   vault init -key-shares=5 -key-threshold=3 >> /tmp/config/vault/keys || true
-# fi
-#
-for (( i = 1; i < 4; i++ )); do
-  KEY=`grep "Unseal Key $i:" /tmp/config/vault/keys | cut -c 15-` && vault unseal $KEY -address=http://0.0.0.0:8200
-done
+#if [[ $1 == 0 && ! -f /tmp/config/vault/keys ]]; then
+#  vault init -key-shares=5 -key-threshold=3 >> /tmp/config/vault/keys || true
+#fi
+
+#for (( i = 1; i < 4; i++ )); do
+#  KEY=`grep "Unseal Key $i:" /tmp/config/vault/keys | cut -c 15-` && vault unseal $KEY -address=http://0.0.0.0:8200
+#done
