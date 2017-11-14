@@ -13,10 +13,13 @@ Error checking seal status: Get http://127.0.0.1/v1/sys/seal-status: dial tcp 12
 ```
 Run: export VAULT_ADDR=http://127.0.0.1:8200 -- This is hit because Vault defaults to look for the https address for the Vault API.
 
+## Pre-requisites
+- Oracle VirtualBox
+
 ## Commands
 
-Bring up all nodes
-`vagrant up`
+Bring up all Consul/Vault nodes
+`vagrant up consul-0 consul-1 consul-2 vault-0 vault-1 vault-2`
 
 SSH into a node
 `vagrant ssh server-X`
