@@ -1,4 +1,4 @@
-# Vagrant Datacenter
+# HashiBox - Vagrant
 
 A repository used for offline local experimentation, testing and development with Vault and Consul.
 
